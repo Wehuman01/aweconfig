@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "aweconfig"
 dynamic = ["version"]
 description = "A 0600 shell-env vault plus a tiny editor CLI for the API keys your tools read from the environment"
+readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.9"
 license = "MPL-2.0"
 dependencies = []

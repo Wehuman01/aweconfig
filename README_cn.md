@@ -26,7 +26,7 @@ aweconfig 把所有从环境变量读密钥的工具的 key 集中到一个文�
 ## 安装
 
 ```bash
-pip install git+https://github.com/wehuman01/aweconfig.git
+pip install aweconfig
 ```
 
 ## 快速开始

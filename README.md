@@ -26,7 +26,7 @@ What it deliberately does not do: switch agent profiles (that is [aweswitch](htt
 ## Install
 
 ```bash
-pip install git+https://github.com/wehuman01/aweconfig.git
+pip install aweconfig
 ```
 
 ## Quick Start
