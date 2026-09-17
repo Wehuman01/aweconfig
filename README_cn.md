@@ -21,7 +21,7 @@
 
 aweconfig 把所有从环境变量读密钥的工具的 key 集中到一个文件 `~/.config/awe/keys.env`,并提供一个极小的编辑器 CLI。文件本身是普通 shell 文件,任何 POSIX shell 都能直接 `source`——CLI 只是上面的安全编辑器,不是运行时依赖:哪怕 CLI 坏了,shell 照样加载密钥。
 
-它刻意不做的事:切换 agent profile(那是 [aweswitch](https://github.com/Webioinfo01/aweswitch) 的活)、路由模型流量(那是 [awerouter](https://github.com/wehuman01/awerouter) 的活)、保管 OAuth 登录 token(留在各工具自己的配置里)。它只是这些工具读密钥的保险箱——awerouter 的 `${VAR}` provider 引用直接从本文件喂进去的环境变量解析。
+它刻意不做的事:切换 agent profile(那是 [aweswitch](https://github.com/wehuman01/aweswitch) 的活)、路由模型流量(那是 [awerouter](https://github.com/wehuman01/awerouter) 的活)、保管 OAuth 登录 token(留在各工具自己的配置里)。它只是这些工具读密钥的保险箱——awerouter 的 `${VAR}` provider 引用直接从本文件喂进去的环境变量解析。
 
 ## 安装
 

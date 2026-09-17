@@ -21,7 +21,7 @@
 
 aweconfig keeps every API key your tools read from the environment in one file, `~/.config/awe/keys.env`, and gives you a tiny editor for it. The file is a plain shell file any POSIX shell can `source` — the CLI is only a safe editor on top, never a runtime dependency. If the CLI disappears, your shell still loads the keys.
 
-What it deliberately does not do: switch agent profiles (that is [aweswitch](https://github.com/Webioinfo01/aweswitch)), route model traffic (that is [awerouter](https://github.com/wehuman01/awerouter)), or hold OAuth login tokens (those stay in each tool's own config). It is just the vault those tools read keys from — awerouter's `${VAR}` provider references resolve straight from the environment this file feeds.
+What it deliberately does not do: switch agent profiles (that is [aweswitch](https://github.com/wehuman01/aweswitch)), route model traffic (that is [awerouter](https://github.com/wehuman01/awerouter)), or hold OAuth login tokens (those stay in each tool's own config). It is just the vault those tools read keys from — awerouter's `${VAR}` provider references resolve straight from the environment this file feeds.
 
 ## Install
 
