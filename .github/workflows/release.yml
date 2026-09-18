@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - run: python -m pip install --upgrade pip build twine
+      - run: python -m pip install -e ".[dev]"
+
+      - name: Verify tag matches package version
+        run: |
+          PKG_VERSION=$(python -c "import aweconfig; print(aweconfig.__version__)")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "tag ${GITHUB_REF_NAME} does not match package version ${PKG_VERSION}" >&2
+            exit 1
+          fi
+          echo "Version ${PKG_VERSION} matches tag ${GITHUB_REF_NAME}"
+
+      - run: ./verify
+        shell: bash
+      - run: python -m build
+      - run: python -m twine check dist/*
+
+      - name: Extract changelog
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          sed -n "/^## v${VERSION}/,/^## v/{/^## v${VERSION}/d;/^## v/d;p;}" docs/CHANGELOG.md > release_notes.md
+          if [ ! -s release_notes.md ]; then
+            echo "No changelog entry found for v${VERSION}" >&2
+            exit 1
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: release_notes.md
+          generate_release_notes: false
+
+      - name: Publish to PyPI
+        run: python -m twine upload --non-interactive dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
